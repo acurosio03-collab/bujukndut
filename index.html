@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maafin Aku Ya, Cantik? 🥺</title>
+    <!-- Menggunakan Tailwind CSS untuk styling yang cepat & rapi -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background: linear-gradient(135deg, #ffd1dc 0%, #ff9a9e 100%);
+        }
+        .cat-card:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col items-center justify-between p-4 sm:p-8 text-gray-800">
+
+    <!-- Header / Pesan Utama -->
+    <div class="text-center max-w-xl bg-white/80 backdrop-blur-md p-6 sm:p-8 rounded-3xl shadow-xl mt-4">
+        <h1 class="text-3xl sm:text-4xl font-bold text-pink-600 mb-2">Anjir, Ngambek Ya? 😾</h1>
+        <p class="text-gray-600 text-base sm:text-lg mb-6">
+            Jangan cemberut terus dong, nanti cantiknya ilang lho! Nih, aku kasih sekumpulan Anabul gemes khusus buat bikin kamu senyum lagi. Maafin aku ya? 🥺
+        </p>
+        
+        <!-- Tombol Interaktif -->
+        <div id="button-container" class="flex justify-center items-center gap-4 relative h-20">
+            <button onclick="terimaMaaf()" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-6 rounded-full shadow-lg transition transform hover:scale-105">
+                Iya, dimaafin ❤️
+            </button>
+            <button id="btn-tolak" onmouseover="pindahTombol()" onclick="pindahTombol()" class="bg-gray-300 hover:bg-gray-400 text-gray-700 font-bold py-3 px-6 rounded-full shadow-md transition absolute right-10 sm:right-20">
+                Enggak! 😤
+            </button>
+        </div>
+    </div>
+
+    <!-- Galeri Kucing Menggemaskan -->
+    <div class="w-full max-w-4xl my-8">
+        <h2 class="text-center text-xl sm:text-2xl font-bold text-white mb-6 drop-shadow">
+            🐈‍⬛ Deretan Kucing Imut Pengantar Kata Maaf 🐈
+        </h2>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            <!-- Kucing 1 -->
+            <div class="cat-card bg-white rounded-2xl overflow-hidden shadow-lg p-3">
+                <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=500&auto=format&fit=crop&q=60" alt="Kucing Lucu 1" class="rounded-xl w-full h-48 object-cover">
+                <p class="text-center text-sm font-semibold text-gray-700 mt-3">"Tolong maafin dia ya kak, aku aja ngantuk nungguin dimaafin 💤"</p>
+            </div>
+            <!-- Kucing 2 -->
+            <div class="cat-card bg-white rounded-2xl overflow-hidden shadow-lg p-3">
+                <img src="https://images.unsplash.com/photo-1533738363-b7f9aef128ce?w=500&auto=format&fit=crop&q=60" alt="Kucing Lucu 2" class="rounded-xl w-full h-48 object-cover">
+                <p class="text-center text-sm font-semibold text-gray-700 mt-3">"Mata melas ini memohon agar kamu gak ngambek lagi 🥺"</p>
+            </div>
+            <!-- Kucing 3 -->
+            <div class="cat-card bg-white rounded-2xl overflow-hidden shadow-lg p-3">
+                <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=500&auto=format&fit=crop&q=60" alt="Kucing Lucu 3" class="rounded-xl w-full h-48 object-cover">
+                <p class="text-center text-sm font-semibold text-gray-700 mt-3">"Nih senyum sikit dong, biar cantiknya balik lagi ✨"</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="text-white text-sm opacity-90 text-center">
+        Made with ❤️ specially for you.
+    </footer>
+
+    <!-- Script Interaksi -->
+    <script>
+        function pindahTombol() {
+            const btnTolak = document.getElementById('btn-tolak');
+            // Menghasilkan posisi acak agar tombol "Enggak" lari-lari
+            const randomX = Math.random() * (window.innerWidth - 150);
+            const randomY = Math.random() * (window.innerHeight - 150);
+            
+            btnTolak.style.position = 'fixed';
+            btnTolak.style.left = randomX + 'px';
+            btnTolak.style.top = randomY + 'px';
+        }
+
+        function terimaMaaf() {
+            alert("Yeay! Makasih udah dimaafin ya sayang! Love you! ❤️🥰");
+            location.reload();
+        }
+    </script>
+</body>
+</html>
