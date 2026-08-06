@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Misi Khusus: Luluhkan Hati yang Ngambek 🏹💘</title>
+    <title>Misi Spesial: Pasukan Anabul Joget Pengantar Maaf 🐾💖</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts & Canvas Confetti -->
@@ -12,103 +12,128 @@
     <style>
         body {
             font-family: 'Quicksand', sans-serif;
-            background: linear-gradient(135deg, #fbcfe8 0%, #f43f5e 100%);
+            background: linear-gradient(135deg, #ffd1dc 0%, #ff6b81 100%);
             overflow-x: hidden;
         }
-        /* Animasi Love & Bunga Beterbangan di Background */
+        /* Animasi Bunga & Love Beterbangan */
         .floating-heart {
             position: absolute;
-            color: rgba(255, 255, 255, 0.7);
-            animation: floatUp 6s linear infinite;
+            color: rgba(255, 255, 255, 0.8);
+            animation: floatUp 5s linear infinite;
             z-index: 0;
             user-select: none;
         }
         @keyframes floatUp {
             0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
             50% { opacity: 1; }
-            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+            100% { transform: translateY(-10vh) scale(1.3); opacity: 0; }
+        }
+        /* Animasi Kucing Joget / Goyang-goyang */
+        .dancing-cat {
+            animation: danceCat 1s ease-in-out infinite alternate;
+        }
+        @keyframes danceCat {
+            0% { transform: rotate(-5deg) scale(1); }
+            100% { transform: rotate(5deg) scale(1.05); }
         }
         .pulse-love {
-            animation: pulseLove 1.5s infinite;
+            animation: pulseLove 1.2s infinite;
         }
         @keyframes pulseLove {
             0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            50% { transform: scale(1.15); }
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-center p-4 relative text-gray-800">
 
-    <!-- Container Bunga & Love Beterbangan (Dibuat lewat JS nanti) -->
+    <!-- Container Background Love & Bunga -->
     <div id="floating-bg" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
 
     <!-- ================= TAHAP 1: TEMBAK SURAT/LOVE ================= -->
-    <div id="step-archery" class="text-center max-w-md bg-white/90 backdrop-blur-md p-8 rounded-3xl shadow-2xl z-10 transition-all duration-500">
-        <h1 class="text-2xl sm:text-3xl font-bold text-pink-600 mb-2">Target Terdeteksi! 🎯</h1>
+    <div id="step-archery" class="text-center max-w-md bg-white/95 backdrop-blur-md p-8 rounded-3xl shadow-2xl z-10 transition-all duration-500">
+        <div class="text-5xl mb-3 dancing-cat">🐱‍👤</div>
+        <h1 class="text-2xl sm:text-3xl font-bold text-pink-600 mb-2">Ada Target Ngambek! 🎯</h1>
         <p class="text-gray-600 mb-6 text-sm sm:text-base">
-            Ada surat cinta nyasar buat seseorang yang lagi ngambek. Coba <b>panah/klik</b> love di bawah ini supaya suratnya terbuka! 🏹
+            Pasukan kucing joget nemuin surat cinta nyasar nih. Coba <b>panah/klik love</b> di bawah ini buat buka suratnya! 🏹
         </p>
         
-        <!-- Target Love yang bisa dipanah -->
-        <div onclick="tembakSurat()" class="cursor-pointer inline-block pulse-love my-4 transform hover:scale-110 transition">
+        <div onclick="tembakSurat()" class="cursor-pointer inline-block pulse-love my-3 transform hover:scale-110 transition">
             <div class="relative flex items-center justify-center">
                 <span class="text-7xl">💖</span>
-                <span class="absolute text-xs bg-pink-500 text-white px-3 py-1 rounded-full -bottom-2 shadow">Klik untuk Panah! 🎯</span>
+                <span class="absolute text-xs bg-pink-500 text-white px-3 py-1 rounded-full -bottom-2 shadow font-bold">Panah Love Ini! 🎯</span>
             </div>
         </div>
     </div>
 
     <!-- ================= TAHAP 2: KUIS PERTANYAAN (Hidden Awal) ================= -->
-    <div id="step-quiz" class="hidden text-center max-w-md bg-white/90 backdrop-blur-md p-8 rounded-3xl shadow-2xl z-10 transition-all duration-500">
-        <div class="text-5xl mb-3">💌</div>
+    <div id="step-quiz" class="hidden text-center max-w-md bg-white/95 backdrop-blur-md p-8 rounded-3xl shadow-2xl z-10 transition-all duration-500">
+        <div class="text-5xl mb-3 dancing-cat">😾</div>
         <h2 id="quiz-question" class="text-xl sm:text-2xl font-bold text-gray-700 mb-6">
-            Yey kena panah! Sekarang jujur, masih ngambek gak sama aku? 😾
+            Yey kena panah! Jujur deh, masih ngambek gak sama aku? 🥺
         </h2>
         <div id="quiz-options" class="flex flex-col gap-3 relative min-h-[120px]">
             <button onclick="jawabQuiz(1)" class="bg-pink-100 hover:bg-pink-200 text-pink-700 font-semibold py-3 px-4 rounded-xl transition shadow">
-                Masih kesal dikit sih... 😤
+                Masih ngeselin sih... 😤
             </button>
             <button id="btn-kabur" onmouseover="pindahTombol()" onclick="jawabQuiz(2)" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-xl transition shadow">
-                Enggak mau baikan! 😜
+                Enggak mau baikan wlee 😜
             </button>
         </div>
     </div>
 
-    <!-- ================= TAHAP 3: KONTEN UTAMA (KUCING & KATA MAAF) (Hidden Awal) ================= -->
-    <div id="step-main" class="hidden w-full max-w-3xl my-6 flex flex-col items-center z-10">
+    <!-- ================= TAHAP 3: KONTEN UTAMA (PASUKAN KUCING JOGET & MAAF) (Hidden Awal) ================= -->
+    <div id="step-main" class="hidden w-full max-w-4xl my-6 flex flex-col items-center z-10">
         <!-- Kotak Kata Maaf -->
-        <div class="text-center bg-white/90 backdrop-blur-md p-6 sm:p-8 rounded-3xl shadow-xl mb-6 w-full">
-            <h1 class="text-2xl sm:text-3xl font-bold text-pink-600 mb-2">Hore, Berhasil Baikan! 🎉❤️</h1>
+        <div class="text-center bg-white/95 backdrop-blur-md p-6 sm:p-8 rounded-3xl shadow-xl mb-6 w-full">
+            <div class="flex justify-center gap-3 text-4xl mb-2">
+                <span class="dancing-cat">🐈</span>
+                <span class="dancing-cat" style="animation-delay: 0.2s;">🐈‍⬛</span>
+                <span class="dancing-cat" style="animation-delay: 0.4s;">🐾</span>
+            </div>
+            <h1 class="text-2xl sm:text-3xl font-bold text-pink-600 mb-2">Yey, Akhirnya Baikan! 🎉❤️</h1>
             <p class="text-gray-600 text-sm sm:text-base mb-6">
-                Maafin aku ya sayang/cantik kalau ada salah. Jangan cemberut mulu, senyum dong biar cantiknya keluar lagi! Nih pasukan anabul ngirim peluk dan bunga online buat kamu. 🌸🐱
+                Maafin aku ya sayang/cantik kalau ada salah. Jangan cemberut mulu, senyum dong biar cantiknya keluar! Nih pasukan anabul joget khusus buat nemenin hari kamu. 🌸🐱
             </p>
             <button onclick="resetWeb()" class="text-xs text-pink-400 hover:underline">Ulang dari awal</button>
         </div>
 
-        <!-- Galeri Kucing Gemes + Bunga -->
-        <h2 class="text-lg sm:text-xl font-bold text-white mb-4 drop-shadow">
-            🌸 Pasukan Anabul & Buket Bunga Buat Kamu 🌷
+        <!-- Galeri Kucing Joget & Menggemaskan Banyaaak Banget -->
+        <h2 class="text-lg sm:text-xl font-bold text-white mb-4 drop-shadow text-center">
+            🕺💃 Pasukan Kucing Joget & Buket Bunga Spesial Buat Kamu 🌷✨
         </h2>
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full">
             <div class="bg-white rounded-2xl p-3 shadow-lg transform hover:-translate-y-1 transition">
-                <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=500&auto=format&fit=crop&q=60" alt="Kucing 1" class="rounded-xl w-full h-40 object-cover">
-                <p class="text-center text-xs text-gray-600 mt-2 font-semibold">"Nih bunganya diterima ya kak, dia nyesal banget 😿"</p>
+                <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=500&auto=format&fit=crop&q=60" alt="Kucing 1" class="rounded-xl w-full h-36 object-cover dancing-cat">
+                <p class="text-center text-xs text-gray-600 mt-2 font-semibold">"Tolong dimaafin ya kak, dia nyesal banget tuh 😿"</p>
             </div>
             <div class="bg-white rounded-2xl p-3 shadow-lg transform hover:-translate-y-1 transition">
-                <img src="https://images.unsplash.com/photo-1533738363-b7f9aef128ce?w=500&auto=format&fit=crop&q=60" alt="Kucing 2" class="rounded-xl w-full h-40 object-cover">
-                <p class="text-center text-xs text-gray-600 mt-2 font-semibold">"Senyum dong, jangan ngambek terus. Jelek lho wlee 😜"</p>
+                <img src="https://images.unsplash.com/photo-1533738363-b7f9aef128ce?w=500&auto=format&fit=crop&q=60" alt="Kucing 2" class="rounded-xl w-full h-36 object-cover dancing-cat" style="animation-delay: 0.3s;">
+                <p class="text-center text-xs text-gray-600 mt-2 font-semibold">"Nih joget bareng kita aja yuk biar gak ngambek lagi 💃"</p>
             </div>
             <div class="bg-white rounded-2xl p-3 shadow-lg transform hover:-translate-y-1 transition">
-                <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=500&auto=format&fit=crop&q=60" alt="Kucing 3" class="rounded-xl w-full h-40 object-cover">
-                <p class="text-center text-xs text-gray-600 mt-2 font-semibold">"Peluk online dari kita bertiga ya! ✨💕"</p>
+                <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=500&auto=format&fit=crop&q=60" alt="Kucing 3" class="rounded-xl w-full h-36 object-cover dancing-cat" style="animation-delay: 0.5s;">
+                <p class="text-center text-xs text-gray-600 mt-2 font-semibold">"Senyum dong! Biar cantiknya balik lagi ❤️✨"</p>
+            </div>
+            <div class="bg-white rounded-2xl p-3 shadow-lg transform hover:-translate-y-1 transition">
+                <img src="https://images.unsplash.com/photo-1561948955-570b270e7c36?w=500&auto=format&fit=crop&q=60" alt="Kucing 4" class="rounded-xl w-full h-36 object-cover dancing-cat" style="animation-delay: 0.1s;">
+                <p class="text-center text-xs text-gray-600 mt-2 font-semibold">"Nih peluk online paling hangat dari kita semua 🤗"</p>
+            </div>
+            <div class="bg-white rounded-2xl p-3 shadow-lg transform hover:-translate-y-1 transition">
+                <img src="https://images.unsplash.com/photo-1548802673-380ab8ebc7b7?w=500&auto=format&fit=crop&q=60" alt="Kucing 5" class="rounded-xl w-full h-36 object-cover dancing-cat" style="animation-delay: 0.4s;">
+                <p class="text-center text-xs text-gray-600 mt-2 font-semibold">"Bunga tulip virtual khusus buat yang lagi cemberut 🌷"</p>
+            </div>
+            <div class="bg-white rounded-2xl p-3 shadow-lg transform hover:-translate-y-1 transition">
+                <img src="https://images.unsplash.com/photo-1518791841217-8f162f1e1131?w=500&auto=format&fit=crop&q=60" alt="Kucing 6" class="rounded-xl w-full h-36 object-cover dancing-cat" style="animation-delay: 0.2s;">
+                <p class="text-center text-xs text-gray-600 mt-2 font-semibold">"Yey baikan! Jangan marah-marah lagi ya cantikk 🥰"</p>
             </div>
         </div>
     </div>
 
-    <!-- Script Interaktif & Animasi Bunga/Love Beterbangan -->
+    <!-- Script Interaktif & Efek -->
     <script>
-        // Membuat elemen bunga & love beterbangan otomatis di background
-        const symbols = ['💖', '🌸', '🌷', '✨', '💘', '💐', '💗'];
+        // Membuat bunga & love beterbangan di background
+        const symbols = ['💖', '🌸', '🌷', '✨', '💘', '💐', '🐱', '🐾'];
         const bgContainer = document.getElementById('floating-bg');
 
         function createFloatingElement() {
@@ -124,16 +149,15 @@
                 el.remove();
             }, 6000);
         }
-        setInterval(createFloatingElement, 400);
+        setInterval(createFloatingElement, 350);
 
-        // Logika Alur Website
+        // Alur Website
         function tembakSurat() {
             document.getElementById('step-archery').classList.add('hidden');
             document.getElementById('step-quiz').classList.remove('hidden');
             
-            // Efek ledakan konfeti pas dipanah
             confetti({
-                particleCount: 80,
+                particleCount: 90,
                 spread: 70,
                 origin: { y: 0.6 }
             });
@@ -146,7 +170,7 @@
             const optEl = document.getElementById('quiz-options');
 
             if (quizStep === 1) {
-                qEl.innerText = "Yaudah, tapi mau nerima maaf dan buket bunga dari aku kan? 🥺";
+                qEl.innerText = "Yaudah, tapi mau nerima maaf dan pasukan kucing joget ini kan? 🥺";
                 optEl.innerHTML = `
                     <button onclick="jawabQuiz(2)" class="bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 px-4 rounded-xl transition shadow">
                         Iya deh, dimaafin! 🥰
@@ -180,9 +204,9 @@
 
             // Konfeti meriah bertaburan
             confetti({
-                particleCount: 150,
-                spread: 100,
-                origin: { y: 0.5 }
+                particleCount: 200,
+                spread: 120,
+                origin: { y: 0.4 }
             });
         }
 
@@ -190,10 +214,10 @@
             document.getElementById('step-main').classList.add('hidden');
             document.getElementById('step-archery').classList.remove('hidden');
             quizStep = 0;
-            document.getElementById('quiz-question').innerText = "Yey kena panah! Sekarang jujur, masih ngambek gak sama aku? 😾";
+            document.getElementById('quiz-question').innerText = "Yey kena panah! Jujur deh, masih ngambek gak sama aku? 🥺";
             document.getElementById('quiz-options').innerHTML = `
-                <button onclick="jawabQuiz(1)" class="bg-pink-100 hover:bg-pink-200 text-pink-700 font-semibold py-3 px-4 rounded-xl transition shadow">Masih kesal dikit sih... 😤</button>
-                <button id="btn-kabur" onmouseover="pindahTombol()" onclick="jawabQuiz(2)" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-xl transition shadow">Enggak mau baikan! 😜</button>
+                <button onclick="jawabQuiz(1)" class="bg-pink-100 hover:bg-pink-200 text-pink-700 font-semibold py-3 px-4 rounded-xl transition shadow">Masih ngeselin sih... 😤</button>
+                <button id="btn-kabur" onmouseover="pindahTombol()" onclick="jawabQuiz(2)" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-xl transition shadow">Enggak mau baikan wlee 😜</button>
             `;
         }
     </script>
