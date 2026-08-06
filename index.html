@@ -3,151 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pesan Spesial Buat Kamu 🎁✨</title>
+    <title>Misi Khusus: Luluhkan Hati yang Ngambek 🏹💘</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts & Canvas Confetti untuk efek meriah -->
+    <!-- Google Fonts & Canvas Confetti -->
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
     <style>
         body {
             font-family: 'Quicksand', sans-serif;
-            background: linear-gradient(135deg, #ffdde1 0%, #ee9ca7 100%);
+            background: linear-gradient(135deg, #fbcfe8 0%, #f43f5e 100%);
+            overflow-x: hidden;
         }
-        .bounce-custom {
-            animation: bounce 2s infinite;
+        /* Animasi Love & Bunga Beterbangan di Background */
+        .floating-heart {
+            position: absolute;
+            color: rgba(255, 255, 255, 0.7);
+            animation: floatUp 6s linear infinite;
+            z-index: 0;
+            user-select: none;
         }
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
+        @keyframes floatUp {
+            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+        }
+        .pulse-love {
+            animation: pulseLove 1.5s infinite;
+        }
+        @keyframes pulseLove {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
         }
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-center p-4 sm:p-6 text-gray-800">
+<body class="min-h-screen flex flex-col items-center justify-center p-4 relative text-gray-800">
 
-    <!-- TAHAP 1: KADO VIRTUAL -->
-    <div id="step-gift" class="text-center max-w-md bg-white/90 backdrop-blur-md p-8 rounded-3xl shadow-2xl transition-all duration-500">
-        <div class="text-6xl mb-4 bounce-custom">🎁</div>
-        <h1 class="text-2xl sm:text-3xl font-bold text-pink-600 mb-3">Ada Kado Rahasia Nih!</h1>
+    <!-- Container Bunga & Love Beterbangan (Dibuat lewat JS nanti) -->
+    <div id="floating-bg" class="absolute inset-0 pointer-events-none overflow-hidden"></div>
+
+    <!-- ================= TAHAP 1: TEMBAK SURAT/LOVE ================= -->
+    <div id="step-archery" class="text-center max-w-md bg-white/90 backdrop-blur-md p-8 rounded-3xl shadow-2xl z-10 transition-all duration-500">
+        <h1 class="text-2xl sm:text-3xl font-bold text-pink-600 mb-2">Target Terdeteksi! 🎯</h1>
         <p class="text-gray-600 mb-6 text-sm sm:text-base">
-            Katanya ada seseorang yang lagi ngambek ya? Coba klik kado di bawah ini dulu buat lihat Isinya! 👇
+            Ada surat cinta nyasar buat seseorang yang lagi ngambek. Coba <b>panah/klik</b> love di bawah ini supaya suratnya terbuka! 🏹
         </p>
-        <button onclick="bukaKado()" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-8 rounded-full shadow-lg transform hover:scale-105 transition">
-            Buka Kadonya 🎀
-        </button>
+        
+        <!-- Target Love yang bisa dipanah -->
+        <div onclick="tembakSurat()" class="cursor-pointer inline-block pulse-love my-4 transform hover:scale-110 transition">
+            <div class="relative flex items-center justify-center">
+                <span class="text-7xl">💖</span>
+                <span class="absolute text-xs bg-pink-500 text-white px-3 py-1 rounded-full -bottom-2 shadow">Klik untuk Panah! 🎯</span>
+            </div>
+        </div>
     </div>
 
-    <!-- TAHAP 2: PERTANYAAN / KUIS LUCU (Hidden Awalnya) -->
-    <div id="step-quiz" class="hidden text-center max-w-md bg-white/90 backdrop-blur-md p-8 rounded-3xl shadow-2xl transition-all duration-500">
-        <div class="text-5xl mb-3">😾❓</div>
+    <!-- ================= TAHAP 2: KUIS PERTANYAAN (Hidden Awal) ================= -->
+    <div id="step-quiz" class="hidden text-center max-w-md bg-white/90 backdrop-blur-md p-8 rounded-3xl shadow-2xl z-10 transition-all duration-500">
+        <div class="text-5xl mb-3">💌</div>
         <h2 id="quiz-question" class="text-xl sm:text-2xl font-bold text-gray-700 mb-6">
-            Seberapa besar sih rasa ngambek kamu sekarang?
+            Yey kena panah! Sekarang jujur, masih ngambek gak sama aku? 😾
         </h2>
-        <div id="quiz-options" class="flex flex-col gap-3">
-            <button onclick="jawabQuiz(1)" class="bg-pink-100 hover:bg-pink-200 text-pink-700 font-semibold py-3 px-4 rounded-xl transition">
-                Besar banget! Pokoknya kesal! 😤
+        <div id="quiz-options" class="flex flex-col gap-3 relative min-h-[120px]">
+            <button onclick="jawabQuiz(1)" class="bg-pink-100 hover:bg-pink-200 text-pink-700 font-semibold py-3 px-4 rounded-xl transition shadow">
+                Masih kesal dikit sih... 😤
             </button>
-            <button onclick="jawabQuiz(2)" class="bg-pink-100 hover:bg-pink-200 text-pink-700 font-semibold py-3 px-4 rounded-xl transition">
-                Hmm, mau dibujuk dulu sih... 😏
-            </button>
-            <button onclick="jawabQuiz(3)" class="bg-pink-100 hover:bg-pink-200 text-pink-700 font-semibold py-3 px-4 rounded-xl transition">
-                Sebenarnya udah kangen mau baikan... 🥺
+            <button id="btn-kabur" onmouseover="pindahTombol()" onclick="jawabQuiz(2)" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-xl transition shadow">
+                Enggak mau baikan! 😜
             </button>
         </div>
     </div>
 
-    <!-- TAHAP 3: KONTEN UTAMA (KUCING & PERMINTAAN MAAF - Hidden Awalnya) -->
-    <div id="step-main" class="hidden w-full max-w-3xl my-6 flex flex-col items-center">
+    <!-- ================= TAHAP 3: KONTEN UTAMA (KUCING & KATA MAAF) (Hidden Awal) ================= -->
+    <div id="step-main" class="hidden w-full max-w-3xl my-6 flex flex-col items-center z-10">
         <!-- Kotak Kata Maaf -->
         <div class="text-center bg-white/90 backdrop-blur-md p-6 sm:p-8 rounded-3xl shadow-xl mb-6 w-full">
-            <h1 class="text-2xl sm:text-3xl font-bold text-pink-600 mb-2">Yey, Akhirnya Senyum Lagi! 🎉</h1>
-            <p id="custom-message" class="text-gray-600 text-sm sm:text-base mb-6">
-                Maafin aku ya sayang/cantik kalau ada salah kata atau bikin kesel. Jangan cemberut mulu, nanti cantiknya luntur lho. Nih pasukan anabul ngirim peluk online buat kamu! 🤗❤️
+            <h1 class="text-2xl sm:text-3xl font-bold text-pink-600 mb-2">Hore, Berhasil Baikan! 🎉❤️</h1>
+            <p class="text-gray-600 text-sm sm:text-base mb-6">
+                Maafin aku ya sayang/cantik kalau ada salah. Jangan cemberut mulu, senyum dong biar cantiknya keluar lagi! Nih pasukan anabul ngirim peluk dan bunga online buat kamu. 🌸🐱
             </p>
             <button onclick="resetWeb()" class="text-xs text-pink-400 hover:underline">Ulang dari awal</button>
         </div>
 
-        <!-- Galeri Kucing Gemes -->
+        <!-- Galeri Kucing Gemes + Bunga -->
         <h2 class="text-lg sm:text-xl font-bold text-white mb-4 drop-shadow">
-            🐾 Pasukan Anabul Pengantar Kata Maaf 🐾
+            🌸 Pasukan Anabul & Buket Bunga Buat Kamu 🌷
         </h2>
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full">
             <div class="bg-white rounded-2xl p-3 shadow-lg transform hover:-translate-y-1 transition">
                 <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?w=500&auto=format&fit=crop&q=60" alt="Kucing 1" class="rounded-xl w-full h-40 object-cover">
-                <p class="text-center text-xs text-gray-600 mt-2 font-semibold">"Tolong dimaafin ya kak, dia beneran nyesal kok 😿"</p>
+                <p class="text-center text-xs text-gray-600 mt-2 font-semibold">"Nih bunganya diterima ya kak, dia nyesal banget 😿"</p>
             </div>
             <div class="bg-white rounded-2xl p-3 shadow-lg transform hover:-translate-y-1 transition">
                 <img src="https://images.unsplash.com/photo-1533738363-b7f9aef128ce?w=500&auto=format&fit=crop&q=60" alt="Kucing 2" class="rounded-xl w-full h-40 object-cover">
-                <p class="text-center text-xs text-gray-600 mt-2 font-semibold">"Nih cubet pipi aku aja kalau dia nakal 😾✨"</p>
+                <p class="text-center text-xs text-gray-600 mt-2 font-semibold">"Senyum dong, jangan ngambek terus. Jelek lho wlee 😜"</p>
             </div>
             <div class="bg-white rounded-2xl p-3 shadow-lg transform hover:-translate-y-1 transition">
                 <img src="https://images.unsplash.com/photo-1574158622682-e40e69881006?w=500&auto=format&fit=crop&q=60" alt="Kucing 3" class="rounded-xl w-full h-40 object-cover">
-                <p class="text-center text-xs text-gray-600 mt-2 font-semibold">"Senyum dong! Biar cantiknya balik lagi ❤️"</p>
+                <p class="text-center text-xs text-gray-600 mt-2 font-semibold">"Peluk online dari kita bertiga ya! ✨💕"</p>
             </div>
         </div>
     </div>
 
-    <!-- Script Logika Interaktif -->
+    <!-- Script Interaktif & Animasi Bunga/Love Beterbangan -->
     <script>
-        function bukaKado() {
-            document.getElementById('step-gift').classList.add('hidden');
+        // Membuat elemen bunga & love beterbangan otomatis di background
+        const symbols = ['💖', '🌸', '🌷', '✨', '💘', '💐', '💗'];
+        const bgContainer = document.getElementById('floating-bg');
+
+        function createFloatingElement() {
+            const el = document.createElement('div');
+            el.className = 'floating-heart';
+            el.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.fontSize = (Math.random() * 20 + 15) + 'px';
+            el.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            bgContainer.appendChild(el);
+
+            setTimeout(() => {
+                el.remove();
+            }, 6000);
+        }
+        setInterval(createFloatingElement, 400);
+
+        // Logika Alur Website
+        function tembakSurat() {
+            document.getElementById('step-archery').classList.add('hidden');
             document.getElementById('step-quiz').classList.remove('hidden');
-            // Efek konfeti kecil saat kado dibuka
+            
+            // Efek ledakan konfeti pas dipanah
             confetti({
-                particleCount: 50,
-                spread: 60,
+                particleCount: 80,
+                spread: 70,
                 origin: { y: 0.6 }
             });
         }
 
-        let stepQuizCount = 0;
+        let quizStep = 0;
         function jawabQuiz(pilihan) {
-            stepQuizCount++;
-            const questionEl = document.getElementById('quiz-question');
-            const optionsEl = document.getElementById('quiz-options');
+            quizStep++;
+            const qEl = document.getElementById('quiz-question');
+            const optEl = document.getElementById('quiz-options');
 
-            if (stepQuizCount === 1) {
-                // Pertanyaan kedua setelah klik opsi pertama
-                questionEl.innerText = "Duh... tapi mau kan nerima maaf dari aku? 🥺";
-                optionsEl.innerHTML = `
+            if (quizStep === 1) {
+                qEl.innerText = "Yaudah, tapi mau nerima maaf dan buket bunga dari aku kan? 🥺";
+                optEl.innerHTML = `
                     <button onclick="jawabQuiz(2)" class="bg-pink-500 hover:bg-pink-600 text-white font-semibold py-3 px-4 rounded-xl transition shadow">
                         Iya deh, dimaafin! 🥰
                     </button>
-                    <button onclick="pindahTombolIseng()" id="btn-nyerah" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-3 px-4 rounded-xl transition">
-                        Enggak mau wlee 🤪
+                    <button id="btn-kabur-2" onmouseover="pindahTombol2()" onclick="jawabQuiz(2)" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold py-3 px-4 rounded-xl transition shadow">
+                        Masih pikir-pikir... 😏
                     </button>
                 `;
             } else {
-                // Selesai kuis, masuk ke tahap utama (kucing & maaf)
-                document.getElementById('step-quiz').classList.add('hidden');
-                document.getElementById('step-main').classList.remove('hidden');
-
-                // Konfeti meriah!
-                confetti({
-                    particleCount: 150,
-                    spread: 100,
-                    origin: { y: 0.5 }
-                });
+                masukMenuUtama();
             }
         }
 
-        function pindahTombolIseng() {
-            // Kalau iseng milih "Enggak mau", tombolnya kabur atau langsung lanjutin aja biar gemes
-            alert("Ih kok gitu? Yaudah dimaafin paksa ya sama kucing-kucing! 🐱❤️");
+        function pindahTombol() {
+            const btn = document.getElementById('btn-kabur');
+            const randomX = (Math.random() - 0.5) * 150;
+            const randomY = (Math.random() - 0.5) * 50;
+            btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        }
+
+        function pindahTombol2() {
+            const btn = document.getElementById('btn-kabur-2');
+            const randomX = (Math.random() - 0.5) * 150;
+            const randomY = (Math.random() - 0.5) * 50;
+            btn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+        }
+
+        function masukMenuUtama() {
             document.getElementById('step-quiz').classList.add('hidden');
             document.getElementById('step-main').classList.remove('hidden');
-            confetti({ particleCount: 100, spread: 80 });
+
+            // Konfeti meriah bertaburan
+            confetti({
+                particleCount: 150,
+                spread: 100,
+                origin: { y: 0.5 }
+            });
         }
 
         function resetWeb() {
             document.getElementById('step-main').classList.add('hidden');
-            document.getElementById('step-gift').classList.remove('hidden');
-            stepQuizCount = 0;
-            document.getElementById('quiz-question').innerText = "Seberapa besar sih rasa ngambek kamu sekarang?";
+            document.getElementById('step-archery').classList.remove('hidden');
+            quizStep = 0;
+            document.getElementById('quiz-question').innerText = "Yey kena panah! Sekarang jujur, masih ngambek gak sama aku? 😾";
             document.getElementById('quiz-options').innerHTML = `
-                <button onclick="jawabQuiz(1)" class="bg-pink-100 hover:bg-pink-200 text-pink-700 font-semibold py-3 px-4 rounded-xl transition">Besar banget! Pokoknya kesal! 😤</button>
-                <button onclick="jawabQuiz(1)" class="bg-pink-100 hover:bg-pink-200 text-pink-700 font-semibold py-3 px-4 rounded-xl transition">Hmm, mau dibujuk dulu sih... 😏</button>
-                <button onclick="jawabQuiz(1)" class="bg-pink-100 hover:bg-pink-200 text-pink-700 font-semibold py-3 px-4 rounded-xl transition">Sebenarnya udah kangen mau baikan... 🥺</button>
+                <button onclick="jawabQuiz(1)" class="bg-pink-100 hover:bg-pink-200 text-pink-700 font-semibold py-3 px-4 rounded-xl transition shadow">Masih kesal dikit sih... 😤</button>
+                <button id="btn-kabur" onmouseover="pindahTombol()" onclick="jawabQuiz(2)" class="bg-gray-100 hover:bg-gray-200 text-gray-700 font-semibold py-3 px-4 rounded-xl transition shadow">Enggak mau baikan! 😜</button>
             `;
         }
     </script>
